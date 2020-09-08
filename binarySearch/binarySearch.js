@@ -1,28 +1,18 @@
-function binarySearch(inputArr, v) {
-    var arr = inputArr.sort();
-    var copy = arr.slice();
-    var low = 0;
-    var mid = Math.floor(low + (arr.length - 1 - low) / 2);
-    var isSearching = true;
-    while (isSearching) {
-        var i = 1;
-        var j = 1;
-        if (arr[mid] < v) {
-            arr = arr.slice(mid + 1);
-            low = mid + i;
-            mid = Math.floor(low + (arr.length - 1 - low) / 2);
-            i++;
+function binarySearch(arr, v) {
+    var left = 0;
+    var right = arr.length - 1.;
+    while (left <= right) {
+        var mid = Math.floor(left + (right - left) / 2);
+        if (arr[mid] === v) {
+            return true;
+        }
+        else if (arr[mid] < v) {
+            left += 1;
         }
         else if (arr[mid] > v) {
-            arr = arr.slice(0, mid);
-            low = mid - j;
-            mid = Math.floor(low + (arr.length - 1 - low) / 2);
-            j++;
-        }
-        else if (arr[mid] === v) {
-            isSearching = false;
+            right -= 1;
         }
     }
-    return copy.indexOf(arr[mid]);
+    return false;
 }
-console.log(binarySearch([10, 19, 14, 26, 27, 31, 35, 33, 42, 44], 3));
+console.log(binarySearch([10, 14, 19, 26, 27, 31, 33, 35, 42, 44], 31));
