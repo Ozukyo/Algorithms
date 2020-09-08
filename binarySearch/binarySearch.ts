@@ -1,4 +1,4 @@
-function binarySearch(arr: number[], v: number): number {
+function binarySearch(arr: number[], v: number): boolean {
     let left = 0;
     let right = arr.length - 1.
 
