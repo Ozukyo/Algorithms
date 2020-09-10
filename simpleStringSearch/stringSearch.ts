@@ -8,7 +8,7 @@ function stringSearch(longer: string, shorter: string): number {
             }
 
             if (j === shorter.length - 1) {
-                counter++
+                counter++;
             }
         }
     }
