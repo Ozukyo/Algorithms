@@ -18,22 +18,12 @@ function generateRandomGrid(): string[][] {
 }
 
 function fillGridWithNumbers(grid: string[][]): any {
-    let bombCounter: number = 0;
     let gridLook: string = "";
 
-    for (let i = 0; i < grid.length - 1; i++) {
-        for (let j = 0; j < grid.length; j++) {
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[0].length; j++) {
             if (grid[i][j] === ".") {
-                if (grid[i + 1][j] !== undefined && grid[i + 1][j] === "*") bombCounter += 1;
-                if (grid[i + 1][j + 1] !== undefined && grid[i + 1][j + 1] === "*") bombCounter += 1;
-                if (grid[i][j + 1] !== undefined && grid[i][j + 1] === "*") bombCounter += 1;
-                if (grid[i - 1][j] !== undefined && grid[i - 1][j] === "*") bombCounter += 1;
-                if (grid[i - 1][j - 1] !== undefined && grid[i - 1][j - 1] === "*") bombCounter += 1;
-                if (grid[i][j - 1] !== undefined && grid[i][j - 1] === "*") bombCounter += 1;
-                if (grid[i - 1][j + 1] !== undefined && grid[i - 1][j + 1] === "*") bombCounter += 1;
-                if (grid[i + 1][j - 1] !== undefined && grid[i + 1][j - 1] === "*") bombCounter += 1;
-                grid[i][j] = bombCounter.toString();
-                bombCounter = 0;
+                checkAllBombPositions(grid, i, j);
             }
             gridLook += grid[i][j] + " ";
         }
@@ -43,4 +33,18 @@ function fillGridWithNumbers(grid: string[][]): any {
     return grid;
 }
 
-fillGridWithNumbers(generateRandomGrid())
+function checkAllBombPositions(grid: string[][], i: number, j: number): void {
+    let bombCounter: number = 0;
+
+    for (let iToAdd = -1; iToAdd <= 1; iToAdd++) {
+        for (let jToAdd = -1; jToAdd <= 1; jToAdd++) {
+            if ((iToAdd === 0 && jToAdd === 0) || i+iToAdd < 0 || i+iToAdd >= grid.length || j+jToAdd < 0 || j+jToAdd>=grid[0].length) {
+                continue;
+            }
+            if (grid[i + iToAdd][j - jToAdd] !== undefined && grid[i + iToAdd][j - jToAdd] === "*") bombCounter += 1;
+            grid[i][j] = bombCounter.toString();
+        }
+    }
+}
+
+fillGridWithNumbers(generateRandomGrid());

@@ -16,29 +16,11 @@ function generateRandomGrid() {
     return arr;
 }
 function fillGridWithNumbers(grid) {
-    var bombCounter = 0;
     var gridLook = "";
-    for (var i = 0; i < grid.length - 1; i++) {
-        for (var j = 0; j < grid.length; j++) {
+    for (var i = 0; i < grid.length; i++) {
+        for (var j = 0; j < grid[0].length; j++) {
             if (grid[i][j] === ".") {
-                if (grid[i + 1][j] !== undefined && grid[i + 1][j] === "*")
-                    bombCounter += 1;
-                if (grid[i + 1][j + 1] !== undefined && grid[i + 1][j + 1] === "*")
-                    bombCounter += 1;
-                if (grid[i][j + 1] !== undefined && grid[i][j + 1] === "*")
-                    bombCounter += 1;
-                if (grid[i - 1][j] !== undefined && grid[i - 1][j] === "*")
-                    bombCounter += 1;
-                if (grid[i - 1][j - 1] !== undefined && grid[i - 1][j - 1] === "*")
-                    bombCounter += 1;
-                if (grid[i][j - 1] !== undefined && grid[i][j - 1] === "*")
-                    bombCounter += 1;
-                if (grid[i - 1][j + 1] !== undefined && grid[i - 1][j + 1] === "*")
-                    bombCounter += 1;
-                if (grid[i + 1][j - 1] !== undefined && grid[i + 1][j - 1] === "*")
-                    bombCounter += 1;
-                grid[i][j] = bombCounter.toString();
-                bombCounter = 0;
+                checkAllBombPositions(grid, i, j);
             }
             gridLook += grid[i][j] + " ";
         }
@@ -46,5 +28,18 @@ function fillGridWithNumbers(grid) {
     }
     console.log(gridLook);
     return grid;
+}
+function checkAllBombPositions(grid, i, j) {
+    var bombCounter = 0;
+    for (var iToAdd = -1; iToAdd <= 1; iToAdd++) {
+        for (var jToAdd = -1; jToAdd <= 1; jToAdd++) {
+            if ((iToAdd === 0 && jToAdd === 0) || i + iToAdd < 0 || i + iToAdd >= grid.length || j + jToAdd < 0 || j + jToAdd >= grid[0].length) {
+                continue;
+            }
+            if (grid[i + iToAdd][j - jToAdd] !== undefined && grid[i + iToAdd][j - jToAdd] === "*")
+                bombCounter += 1;
+            grid[i][j] = bombCounter.toString();
+        }
+    }
 }
 fillGridWithNumbers(generateRandomGrid());
