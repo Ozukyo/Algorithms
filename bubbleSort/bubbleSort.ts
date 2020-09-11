@@ -1,5 +1,5 @@
 function bubbleSort(arr: number[]): number[] {
-    let arrLength = arr.length;
+    let arrLength: number = arr.length;
     for (let i = 0; i < arrLength; i++) {
         for (let j = 0; j < arrLength; j++) {
             if (arr[j] > arr[j + 1]) {

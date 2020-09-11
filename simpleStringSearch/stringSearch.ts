@@ -1,5 +1,5 @@
 function stringSearch(longer: string, shorter: string): number {
-    let counter = 0;
+    let counter: number = 0;
 
     for (let i = 0; i < longer.length; i++) {
         for (let j = 0; j < shorter.length; j++) {

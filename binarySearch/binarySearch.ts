@@ -1,10 +1,10 @@
 function binarySearch(arr: number[], v: number): boolean {
-    let left = 0;
-    let right = arr.length - 1.
+    let left: number = 0;
+    let right: number = arr.length - 1.
 
 
     while (left <= right) {
-        const mid = Math.floor(left + (right - left) / 2);
+        const mid: number = Math.floor(left + (right - left) / 2);
         if(arr[mid] === v) {
             return true;
         } else if(arr[mid] < v) {
